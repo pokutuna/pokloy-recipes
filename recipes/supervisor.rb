@@ -1,3 +1,4 @@
+# coding: utf-8
 # # required
 # - release_path: capistrano provided
 # - :app role
@@ -21,6 +22,8 @@ namespace :supervisor do
     end
   end
 
+  desc 'supervisord を再起動せず設定を読込直す'
+  # eventlistener とかは再読み込みされないっぽい
   task :reread do
     on roles(:app) do
       execute :sudo, 'supervisorctl reread'
