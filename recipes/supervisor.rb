@@ -27,13 +27,7 @@ namespace :supervisor do
 
   task :status do
     on roles(:app) do
-      execute :sudo, "supervisorctl status #{fetch(:supervisor_program_name)}"
-    end
-  end
-
-  task :tail do
-    on roles(:app) do
-      execute :sudo, "supervisorctl tail -f #{fetch(:supervisor_program_name)}"
+      puts "#{host}: #{capture(:sudo, "supervisorctl status #{fetch(:supervisor_program_name)}")}"
     end
   end
 
