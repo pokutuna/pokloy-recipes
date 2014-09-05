@@ -31,7 +31,7 @@ namespace :nginx do
 
   task :configtest do
       on roles(:proxy) do
-        execute :sudo, 'service nginx restart'
+        execute :sudo, 'service nginx configtest'
       end
   end
 
