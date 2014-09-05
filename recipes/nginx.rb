@@ -1,8 +1,8 @@
 # # required
 # - release_path: capistrano provided
-# - :proxy role :
+# - :proxy role
 
-# # required `set` configrations
+# # required `set` configurations
 # - :nginx_confd: server config directry (e.g. /etc/nginx/sites-enabled/)
 # - :nginx_conf_path: config filepath from application root (e.g. config/service.nginx.conf)
 
