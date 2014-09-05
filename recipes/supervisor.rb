@@ -1,12 +1,15 @@
 # coding: utf-8
 # # required
 # - release_path: capistrano provided
-# - :app role
+# - role: :app
 
 # # required `set` configuration
-# - :supervisor_program_name: a name referenced from in config like [program:ApplicationName]
-# - :supervisor_confd: server config directory (e.g. /etc/supervisor/conf.d/)
-# - :supervisor_cof_path: config filepath from application root (e.g. config/service.supervisord.conf)
+# - :supervisor_program_name
+#   - a name referenced from in config like `[program:ApplicationName]`
+# - :supervisor_server_confd
+#   - server config directory (e.g. /etc/supervisor/conf.d/)
+# - :supervisor_conf_path
+#   - config filepath from application root (e.g. config/service.supervisord.conf)
 
 namespace :supervisor do
 
@@ -18,7 +21,7 @@ namespace :supervisor do
 
   task :symlink do
     on roles(:app) do
-      execute :sudo, "ln -fs #{release_path.join(fetch(:supervisor_conf_path))} #{fetch(:supervisor_confd)}"
+      execute :sudo, "ln -fs #{release_path.join(fetch(:supervisor_conf_path))} #{fetch(:supervisor_server_confd)}"
     end
   end
 

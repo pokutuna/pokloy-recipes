@@ -1,16 +1,18 @@
 # # required
 # - release_path: capistrano provided
-# - :proxy role
+# - role: :proxy
 
 # # required `set` configurations
-# - :nginx_confd: server config directry (e.g. /etc/nginx/sites-enabled/)
-# - :nginx_conf_path: config filepath from application root (e.g. config/service.nginx.conf)
+# - :nginx_server_confd
+#    - server config directry (e.g. /etc/nginx/sites-enabled/)
+# - :nginx_conf_path
+#   - config filepath from application root (e.g. config/service.nginx.conf)
 
 namespace :nginx do
 
   task :symlink do
     on roles(:proxy) do
-      execute :sudo, "ln -fs #{release_path.join(fetch(:nginx_conf_path))} #{fetch(:nginx_confd)}"
+      execute :sudo, "ln -fs #{release_path.join(fetch(:nginx_conf_path))} #{fetch(:nginx_server_confd)}"
     end
   end
 
