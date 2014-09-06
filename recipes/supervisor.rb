@@ -56,7 +56,7 @@ namespace :supervisor do
   task :generate_config do
     require 'erb'
     require_relative 'utils'
-    set :filepath, ask('supervisord.conf save to', './config/supervisord.conf')
+    set :filepath, ask('supervisord.conf save to', fetch(:supervisor_conf_path))
     File.open(fetch(:filepath), 'w'){|f|
       f.print ERB.new(template('supervisord.conf.erb'), nil, '-').result(binding)
     }
