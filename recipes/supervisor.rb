@@ -31,6 +31,15 @@ namespace :supervisor do
     end
   end
 
+  task :tail do
+    require 'sshkit'
+    require 'logger'
+    SSHKit.config.output_verbosity = Logger::DEBUG
+    on roles(:app) do
+      execute :sudo, "supervisorctl tail -f #{fetch(:supervisor_program_name)}"
+    end
+  end
+
   desc 'supervisord を再起動せず設定を読込直す'
   # eventlistener とかは再読み込みされないっぽい
   task :reread do
