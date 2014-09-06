@@ -10,6 +10,9 @@
 #   - server config directory (e.g. /etc/supervisor/conf.d/)
 # - :supervisor_conf_path
 #   - config filepath from application root (e.g. config/service.supervisord.conf)
+#
+# - :supervisor_user (only for config generation)
+#   - username
 
 namespace :supervisor do
 
@@ -49,5 +52,14 @@ namespace :supervisor do
   end
 
   after :symlink, :reread
+
+  task :generate_config do
+    require 'erb'
+    require_relative 'utils'
+    set :filepath, ask('supervisord.conf save to', './config/supervisord.conf')
+    File.open(fetch(:filepath), 'w'){|f|
+      f.print ERB.new(template('supervisord.conf.erb'), nil, '-').result(binding)
+    }
+  end
 
 end
