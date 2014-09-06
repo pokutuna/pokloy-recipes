@@ -4,8 +4,8 @@
 # - role: :app
 
 # # required `set` configuration
-# - :supervisor_program_name
-#   - a name referenced from in config like `[program:ApplicationName]`
+# - :application
+#   - a name referenced from in config like `[program:application_name]`
 # - :supervisor_server_confd
 #   - server config directory (e.g. /etc/supervisor/conf.d/)
 # - :supervisor_conf_path
@@ -18,7 +18,7 @@ namespace :supervisor do
 
   task :restart_app do
     on roles(:app) do
-      execute :sudo, "supervisorctl restart #{fetch(:supervisor_program_name)}"
+      execute :sudo, "supervisorctl restart #{fetch(:application)}"
     end
   end
 
@@ -30,7 +30,7 @@ namespace :supervisor do
 
   task :status do
     on roles(:app) do
-      puts "#{host}: #{capture(:sudo, "supervisorctl status #{fetch(:supervisor_program_name)}")}"
+      puts "#{host}: #{capture(:sudo, "supervisorctl status #{fetch(:application)}")}"
     end
   end
 
@@ -39,7 +39,7 @@ namespace :supervisor do
     require 'logger'
     SSHKit.config.output_verbosity = Logger::DEBUG
     on roles(:app) do
-      execute :sudo, "supervisorctl tail -f #{fetch(:supervisor_program_name)}"
+      execute :sudo, "supervisorctl tail -f #{fetch(:application)}"
     end
   end
 

@@ -1,9 +1,9 @@
-[program:<%= fetch(:supervisor_program_name) %>]
+[program:<%= fetch(:application) %>]
 directory=<%= release_path %>
-command=<%= File.join(release_path, 'bin/run.sh') %>
+command=<%= File.join(release_path, "bin/#{ fetch(:application) }.run.sh") %>
 <% if fetch(:supervisor_user) -%>
 user=<%= fetch(:supervisor_user) %>
 <% end -%>
 autorestart=true
-stdout_logfile=/var/log/supervisor/<%= fetch(:supervisor_program_name).downcase%>-supervisord.log
+stdout_logfile=/var/log/supervisor/<%= fetch(:application).downcase%>-supervisord.log
 redirect_stderr=true
