@@ -23,7 +23,7 @@ namespace :nginx do
   end
 
   task :restart do
-    ask :confirm, 'restart? [Y/n]'
+    set :confirm, ask('restart? [Y/n]', nil)
     if fetch(:confirm).match(/^Y/)
       on roles(:proxy) do
         execute :sudo, 'service nginx restart'
