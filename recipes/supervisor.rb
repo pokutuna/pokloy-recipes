@@ -16,6 +16,13 @@
 
 namespace :supervisor do
 
+  task :setup do
+    on roles(:app) do
+      invoke 'supervisor:symlink'
+      execute :sudo, "supervisorctl add #{fetch(:application)}"
+    end
+  end
+
   task :restart_app do
     on roles(:app) do
       execute :sudo, "supervisorctl restart #{fetch(:application)}"

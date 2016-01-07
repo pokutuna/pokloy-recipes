@@ -10,6 +10,13 @@
 
 namespace :nginx do
 
+  task :setup do
+    on roles(:proxy) do
+      invoke 'nginx:symlink'
+      invoke 'nginx:configtest'
+    end
+  end
+
   task :symlink do
     on roles(:proxy) do
       execute :sudo, "ln -fs #{release_path.join(fetch(:nginx_conf_path))} #{fetch(:nginx_server_confd)}"
