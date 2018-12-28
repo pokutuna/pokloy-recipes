@@ -13,8 +13,9 @@ def write_stderr(s):
     sys.stderr.flush()
 
 def send(data):
-    host = 'http://im.kayac.com/api/post/pokutuna'
-    os.system('curl -d "message=%s" %s' % (data, host))
+    host = 'https://notify-api.line.me/api/notify'
+    token = 'ORW9pgorEhyTMXnbmENXsCXwvQKkMKELzvJSqJnHAIM'
+    os.system('curl -H "Authorization: Bearer %s" -d "message=%s" %s' % (token, data, host))
 
 def main():
     while 1:
